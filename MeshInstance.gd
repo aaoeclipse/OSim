@@ -8,9 +8,9 @@ var normals = PoolVector3Array()
 var verts = PoolVector3Array()
 var indices = PoolIntArray()
 
-var size = 5
+var size = 50 
 
-var z = 0
+var y = 0
 var sq_points = []
 
 var anicount = 0
@@ -20,7 +20,7 @@ func _ready():
     
     for i in range(size):
         for j in range(size):
-            sq_points.append(Vector3(i,j,z))
+            sq_points.append(Vector3(i,y,j))
             
     
 func _process(delta):
@@ -36,8 +36,8 @@ func _process(delta):
    
     # add sine fnuciton to points
     for n in range(pow(size, 2)):
-        points.append(sq_points[n] + Vector3(0,0,sin( anicount*10 + int(n % size) * 3 ) * 0.5))
-    
+        points.append(sq_points[n] + Vector3(0, sin( anicount*10 + int(n % size) * 3 ) * 0.5, 0))
+
     waves(points)
                 
     arr[Mesh.ARRAY_VERTEX] = verts

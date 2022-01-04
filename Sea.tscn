@@ -11,4 +11,4 @@ mesh = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.969638, 0, 0.244546, 0, 1, 0, -0.244546, 0, -0.969638, 1.73626, 1.50312, -6.93741 )
+transform = Transform( -0.984808, 1.83435e-09, -0.173648, -0.0308728, 0.984069, 0.175088, 0.170882, 0.177789, -0.969118, 22.8669, 10.6618, -8.74045 )
