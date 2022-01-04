@@ -5,6 +5,8 @@ var arr = []
 
 var uvs = PoolVector2Array()
 var normals = PoolVector3Array()
+var verts = PoolVector3Array()
+var indices = PoolIntArray()
 
 var size = 5
 
@@ -21,32 +23,31 @@ func _ready():
             sq_points.append(Vector3(i,j,z))
             
     
-    
-    # arr[Mesh.ARRAY_VERTEX] = verts
-    # arr[Mesh.ARRAY_TEX_UV] = uvs
-    # arr[Mesh.ARRAY_NORMAL] = normals
-    # arr[Mesh.ARRAY_INDEX] = indices
-        
-    # mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
-
-
 func _process(delta):
     mesh.clear_surfaces()
     
-    var verts = PoolVector3Array()
-    var indices = PoolIntArray()
+    # refresh vertecies and indices 
+    verts = PoolVector3Array()
+    indices = PoolIntArray()
     
     var points = []
     
     anicount += delta
-    
-    # for i in range(len(sq_points)):
-    #     sq_points[i] = sq_points[i] + Vector3(10 * delta,0,0)
+   
+    # add sine fnuciton to points
     for n in range(pow(size, 2)):
         points.append(sq_points[n] + Vector3(0,0,sin( anicount*10 + int(n % size) * 3 ) * 0.5))
     
-    print(anicount)
+    waves(points)
+                
+    arr[Mesh.ARRAY_VERTEX] = verts
+    # arr[Mesh.ARRAY_TEX_UV] = uvs
+    # arr[Mesh.ARRAY_NORMAL] = normals
+    arr[Mesh.ARRAY_INDEX] = indices
         
+    mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+
+func waves(points):
     var counter = 0
     for i in range(size-1):
         for j in range(size-1):
@@ -62,7 +63,7 @@ func _process(delta):
             verts.append(points[size*i + j+1])
             indices.append(counter)
             counter += 1
-         
+        
             # Second Triangle
             verts.append(points[size*(i+1) + j+1])
             indices.append(counter)
@@ -75,13 +76,3 @@ func _process(delta):
             verts.append(points[size*(i+1) + j])
             indices.append(counter)
             counter += 1
-            
-    arr[Mesh.ARRAY_VERTEX] = verts
-    # arr[Mesh.ARRAY_TEX_UV] = uvs
-    # arr[Mesh.ARRAY_NORMAL] = normals
-    arr[Mesh.ARRAY_INDEX] = indices
-        
-    mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
-
-func waves(n, d):
-    pass
