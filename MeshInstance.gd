@@ -2,13 +2,15 @@ extends MeshInstance
 
 var arr = []
 
+var wave_speed = 5
+var wave_size = 100
 
 var uvs = PoolVector2Array()
 var normals = PoolVector3Array()
 var verts = PoolVector3Array()
 var indices = PoolIntArray()
 
-var size = 50 
+var size = 50
 
 var y = 0
 var sq_points = []
@@ -36,7 +38,7 @@ func _process(delta):
    
     # add sine fnuciton to points
     for n in range(pow(size, 2)):
-        points.append(sq_points[n] + Vector3(0, sin( anicount*10 + int(n % size) * 3 ) * 0.5, 0))
+        points.append(sq_points[n] + Vector3(0, sin( anicount*wave_speed + int(n % size) * wave_size ) * 0.5, 0))
 
     waves(points)
                 
