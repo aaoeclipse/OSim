@@ -1,5 +1,6 @@
 extends MeshInstance
 
+onready var collision_shape = get_node('../CollisionShape')
 var arr = []
 
 var wave_speed = 5
@@ -16,6 +17,7 @@ var y = 0
 var sq_points = []
 
 var anicount = 0
+const CONST_E = VisualScriptMathConstant.MATH_CONSTANT_E
 
 func _ready():
     arr.resize(Mesh.ARRAY_MAX)
@@ -38,6 +40,7 @@ func _process(delta):
    
     # add sine fnuciton to points
     for n in range(pow(size, 2)):
+        # sin(kx + wt) k - separation between waves and w is the 
         points.append(sq_points[n] + Vector3(0, sin( anicount*wave_speed + int(n % size) * wave_size ) * 0.5, 0))
 
     waves(points)
@@ -48,6 +51,8 @@ func _process(delta):
     arr[Mesh.ARRAY_INDEX] = indices
         
     mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+    collision_shape.shape = mesh.create_trimesh_shape() 
+    print(collision_shape.shape)
 
 func waves(points):
     var counter = 0
